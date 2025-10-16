@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Create New Event</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.title.label }} {{ form.title(class='form-control') }}</div>
+    <div class="mb-3">{{ form.category.label }} {{ form.category(class='form-control') }}</div>
+    <div class="mb-3">{{ form.date.label }} {{ form.date(class='form-control') }}</div>
+    <div class="mb-3">{{ form.venue.label }} {{ form.venue(class='form-control') }}</div>
+    <div class="mb-3">{{ form.total_seats.label }} {{ form.total_seats(class='form-control') }}</div>
+    <div class="mb-3">{{ form.ticket_price.label }} {{ form.ticket_price(class='form-control') }}</div>
+    <div class="mb-3">{{ form.description.label }} {{ form.description(class='form-control', rows=3) }}</div>
+    {{ form.submit(class='btn btn-success') }}
+</form>
+{% endblock %}

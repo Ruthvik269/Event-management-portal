@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if organizer %}
+  <h2>Your Organized Events</h2>
+  <a href="{{ url_for('create_event') }}" class="btn btn-primary mb-3">Create New Event</a>
+  <div class="row">
+    {% for e in events %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5>{{ e.title }}</h5>
+            <p>{{ e.date.strftime('%Y-%m-%d %H:%M') }}</p>
+            <p>Venue: {{ e.venue }}</p>
+            <p>Seats Left: {{ e.available_seats }}</p>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p>No events created yet.</p>
+    {% endfor %}
+  </div>
+{% else %}
+  <h2>My Bookings</h2>
+  <div class="list-group">
+    {% for b in bookings %}
+      <div class="list-group-item">
+        <strong>{{ b.event.title }}</strong> — {{ b.quantity }} tickets
+        <br><small>{{ b.event.date.strftime('%Y-%m-%d %H:%M') }} at {{ b.event.venue }}</small>
+      </div>
+    {% else %}
+      <p>You haven't booked any tickets yet.</p>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

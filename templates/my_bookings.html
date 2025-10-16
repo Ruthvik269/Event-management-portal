@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Bookings</h2>
+<div class="list-group">
+  {% for b in bookings %}
+    <div class="list-group-item">
+      <strong>{{ b.event.title }}</strong> — {{ b.quantity }} ticket(s)
+      <br><small>{{ b.event.date.strftime('%Y-%m-%d %H:%M') }} at {{ b.event.venue }}</small>
+      <br>Status: {{ b.status }}
+    </div>
+  {% else %}
+    <p>You haven't made any bookings yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ event.title }}</h2>
+<p><strong>Category:</strong> {{ event.category }}</p>
+<p><strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d %H:%M') }}</p>
+<p><strong>Venue:</strong> {{ event.venue }}</p>
+<p><strong>Ticket Price:</strong> ₹{{ event.ticket_price }}</p>
+<p><strong>Available Seats:</strong> {{ event.available_seats }}</p>
+<p><strong>Description:</strong> {{ event.description }}</p>
+
+{% if current_user.is_authenticated %}
+  {% if current_user.is_organizer %}
+    <div class="alert alert-info">Organizers cannot book tickets.</div>
+  {% else %}
+    <form method="POST" action="{{ url_for('book', event_id=event.id) }}">
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Number of Tickets</label>
+            <input type="number" class="form-control" name="quantity" id="quantity" min="1" max="{{ event.available_seats }}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Book Now</button>
+    </form>
+  {% endif %}
+{% else %}
+  <div class="alert alert-warning">Please <a href="{{ url_for('login') }}">login</a> to book tickets.</div>
+{% endif %}
+{% endblock %}
